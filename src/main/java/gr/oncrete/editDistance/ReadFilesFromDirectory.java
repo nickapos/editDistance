@@ -30,4 +30,7 @@ public class ReadFilesFromDirectory {
     public void printFilenames(){
         filenames.forEach(name -> System.out.println(name) );
     }
+    public List getFilenames(){
+        return filenames;
+    }
 }

@@ -1,4 +1,4 @@
-package org.example;
+package gr.oncrete.editDistance;
 
 import static org.junit.Assert.assertTrue;
 
