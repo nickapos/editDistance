@@ -16,6 +16,7 @@ public class ReadFilesFromDirectory {
     public ReadFilesFromDirectory(String scanPath) {
         filenames = new ArrayList<>();
         this.scanPath = scanPath;
+        this.readFiles();
     }
 
     public void readFiles() {
