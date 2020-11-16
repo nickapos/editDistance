@@ -1,5 +1,8 @@
 package gr.oncrete.editDistance;
 
+import gr.oncrete.editDistance.FindDuplicates;
+import gr.oncrete.editDistance.ReadFilesFromDirectory;
+
 import java.util.List;
 import java.util.Scanner;
 
