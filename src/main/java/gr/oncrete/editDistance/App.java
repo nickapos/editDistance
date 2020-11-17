@@ -1,9 +1,6 @@
 package gr.oncrete.editDistance;
 
-import gr.oncrete.editDistance.FindDuplicates;
-import gr.oncrete.editDistance.ReadFilesFromDirectory;
-
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App
@@ -17,9 +14,9 @@ public class App
         System.out.println("Please provide the path that will be scanned");
         String scanPath=console.next();
         ReadFilesFromDirectory readFiles= new ReadFilesFromDirectory(scanPath);
-        List filenames= readFiles.getFilenames();
+        ArrayList<String> filenames= readFiles.getFilenames();
         FindDuplicates findDup = new FindDuplicates(filenames);
-        findDup.printDuplicates();
+        findDup.toJson();
 
 
     }

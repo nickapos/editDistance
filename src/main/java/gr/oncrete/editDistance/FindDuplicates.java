@@ -2,18 +2,20 @@ package gr.oncrete.editDistance;
 
 import edu.stanford.nlp.util.EditDistance;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import org.json.simple.JSONObject;
 
 
 public class FindDuplicates {
-    List<String> fileNames;
-    HashMap<String, ArrayList> duplicates;
+    private final ArrayList<String> fileNames;
+    private HashMap<String, ArrayList<String>> duplicates;
 
-    public FindDuplicates(List incomingFilenames) {
+    public FindDuplicates(ArrayList<String> incomingFilenames) {
         this.fileNames = incomingFilenames;
-        duplicates = new HashMap<String, ArrayList>();
+        duplicates = new HashMap<>();
         this.findDuplicates();
     }
 
@@ -22,10 +24,7 @@ public class FindDuplicates {
         double distance = ed.score(a, b);
         //System.out.println("String a is:" + a + " String b is:" + b + " Edit Distance is:" + distance);
         //return true if two strings are close to each other
-        if (distance < 10) {
-            return true;
-        }
-        return false;
+        return distance < 10;
 
     }
 
@@ -33,13 +32,13 @@ public class FindDuplicates {
         fileNames.forEach(firstName -> {
             //System.out.println("Looking for duplicates for:" + firstName);
             fileNames.forEach(secondName -> {
-                if (firstName != secondName && this.compareStrings(firstName, secondName)) {
+                if (!firstName.equals(secondName) && this.compareStrings(firstName, secondName)) {
                     if (duplicates.get(firstName) == null) {
-                        ArrayList newDup = new ArrayList();
+                        ArrayList<String> newDup = new ArrayList<>();
                         newDup.add(secondName);
                         duplicates.put(firstName, newDup);
                     } else {
-                        ArrayList dup = duplicates.get(firstName);
+                        ArrayList<String> dup = duplicates.get(firstName);
                         dup.add(secondName);
                     }
                 }
@@ -47,12 +46,19 @@ public class FindDuplicates {
         });
     }
 
-    public void printDuplicates() {
+   public void toJson() {
+        JSONObject jsonObject = new JSONObject(duplicates);
 
-        for (String key : duplicates.keySet()) {
-            System.out.println("\nPrinting duplicates for:" + key);
-            List a = duplicates.get(key);
-            a.forEach(name -> System.out.println(name));
+        // writing the JSONObject into a file(info.json)
+        try {
+            FileWriter fileWriter = new FileWriter("duplicates.json");
+            fileWriter.write(jsonObject.toJSONString());
+            fileWriter.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        System.out.println(jsonObject);
+        System.out.println("Found "+duplicates.keySet().size()+" duplicate references");
     }
 }
+

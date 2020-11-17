@@ -5,12 +5,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ReadFilesFromDirectory {
-    List<String> filenames;
+    ArrayList<String> filenames;
     String scanPath;
 
     public ReadFilesFromDirectory(String scanPath) {
@@ -22,16 +21,13 @@ public class ReadFilesFromDirectory {
     public void readFiles() {
 
         try (Stream<Path> paths =Files.walk(Paths.get(this.scanPath))){
-            filenames=paths.filter(Files::isRegularFile).map(Path::toString).collect(Collectors.toList());
+            filenames= (ArrayList<String>) paths.filter(Files::isRegularFile).map(Path::toString).collect(Collectors.toList());
         } catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    public void printFilenames(){
-        filenames.forEach(name -> System.out.println(name) );
-    }
-    public List getFilenames(){
+    public ArrayList<String> getFilenames(){
         return filenames;
     }
 }
