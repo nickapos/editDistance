@@ -20,7 +20,8 @@ public class FindDuplicates {
     private boolean compareStrings(String a, String b) {
         EditDistance ed = new EditDistance();
         double distance = ed.score(a, b);
-        System.out.println("String a is:" + a + " String b is:" + b + " Edit Distance is:" + distance);
+        //System.out.println("String a is:" + a + " String b is:" + b + " Edit Distance is:" + distance);
+        //return true if two strings are close to each other
         if (distance < 10) {
             return true;
         }
@@ -32,7 +33,7 @@ public class FindDuplicates {
         fileNames.forEach(firstName -> {
             System.out.println("Looking for duplicates for:" + firstName);
             fileNames.forEach(secondName -> {
-                if (this.compareStrings(firstName, secondName)) {
+                if (firstName != secondName && this.compareStrings(firstName, secondName)) {
                     if (duplicates.get(firstName) == null) {
                         ArrayList newDup = new ArrayList();
                         newDup.add(secondName);
