@@ -31,7 +31,7 @@ public class FindDuplicates {
 
     public void findDuplicates() {
         fileNames.forEach(firstName -> {
-            System.out.println("Looking for duplicates for:" + firstName);
+            //System.out.println("Looking for duplicates for:" + firstName);
             fileNames.forEach(secondName -> {
                 if (firstName != secondName && this.compareStrings(firstName, secondName)) {
                     if (duplicates.get(firstName) == null) {
@@ -50,7 +50,7 @@ public class FindDuplicates {
     public void printDuplicates() {
 
         for (String key : duplicates.keySet()) {
-            System.out.println("Printing duplicates for:" + key);
+            System.out.println("\nPrinting duplicates for:" + key);
             List a = duplicates.get(key);
             a.forEach(name -> System.out.println(name));
         }
